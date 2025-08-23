@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import ProductCard from "../components/ProductCard";
 import NavBar from "../components/NavBar";
 import SearchAndFilter from "../components/SearchAndFilter";
-import { FaSortAmountDown, FaStar, FaFilter, FaShoppingCart, FaSearch } from 'react-icons/fa';
+import { FaShoppingCart, FaSortAmountDown, FaFilter, FaSearch } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import AnimatedCreditCard from "../components/AnimatedCreditCard";
+import { useCart } from "../components/CartContext";
+import { useRouter } from 'next/navigation';
 
 
 
@@ -32,14 +33,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
-  // Demo: live-update credit card number on homepage
-  const [demoCardNumber, setDemoCardNumber] = useState("");
-  const handleDemoNumber = (e) => {
-    const digits = e.target.value.replace(/\D/g, "").slice(0, 16);
-    const pretty = digits.replace(/(.{4})/g, "$1 ").trim();
-    setDemoCardNumber(pretty);
-  };
+  // const [cartCount, setCartCount] = useState(0); // replaced by context-derived count
+  const { items } = useCart();
+  const cartCount = items.reduce((sum, i) => sum + i.quantity, 0);
+  const router = useRouter();
+  // Removed credit card demo state and handler
 
   // Initialize products
   useEffect(() => {
@@ -102,34 +100,27 @@ export default function Home() {
 
   // Add to cart animation
   const addToCart = (product) => {
-    setCartCount(prev => prev + 1);
-    
+    // setCartCount(prev => prev + 1); // no longer needed; count comes from context
     // Create a visual effect
     const cartBtn = document.getElementById('cart-icon');
     if (cartBtn) {
       const btnRect = cartBtn.getBoundingClientRect();
       const btnCenterX = btnRect.left + btnRect.width / 2;
       const btnCenterY = btnRect.top + btnRect.height / 2;
-      
-      // Create flying element
       const flyingItem = document.createElement('div');
       flyingItem.innerHTML = `<div class="w-4 h-4 bg-blue-500 rounded-full"></div>`;
       flyingItem.style.position = 'fixed';
-      flyingItem.style.left = `${window.scrollX + 50}px`; // Start from product position
+      flyingItem.style.left = `${window.scrollX + 50}px`;
       flyingItem.style.top = `${window.scrollY + 50}px`;
       flyingItem.style.zIndex = '1000';
       flyingItem.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
       document.body.appendChild(flyingItem);
-      
-      // Animate to cart
       setTimeout(() => {
         flyingItem.style.left = `${btnCenterX}px`;
         flyingItem.style.top = `${btnCenterY}px`;
         flyingItem.style.transform = 'scale(0.5)';
         flyingItem.style.opacity = '0.5';
       }, 10);
-      
-      // Cleanup
       setTimeout(() => {
         document.body.removeChild(flyingItem);
       }, 800);
@@ -268,30 +259,15 @@ export default function Home() {
           )}
         </main>
 
-        {/* Demo: Real-time credit card number updater */}
-        <section className="container mx-auto px-4 pb-12">
-          <div className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center">
-            <AnimatedCreditCard number={demoCardNumber} />
-            <div className="w-full max-w-md mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Card Number (Demo)</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                value={demoCardNumber}
-                onChange={handleDemoNumber}
-                placeholder="1234 5678 9012 3456"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-black placeholder-black"
-              />
-              <p className="text-xs text-gray-500 mt-2">Type to update the card in real-time.</p>
-            </div>
-          </div>
-        </section>
+        {/* Removed credit card demo section */}
         
         {/* Floating cart button for mobile */}
         <div className="md:hidden fixed bottom-6 right-6 z-20">
           <button 
-            className="w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
+            className="relative w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
             id="cart-icon"
+            onClick={() => router.push('/cart')}
+            aria-label="Open cart"
           >
             <FaShoppingCart />
             {cartCount > 0 && (

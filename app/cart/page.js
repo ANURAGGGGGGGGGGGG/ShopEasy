@@ -47,16 +47,16 @@ export default function CartPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Header */}
       <header className="bg-white shadow-sm py-4 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
+        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center max-[426px]:justify-start max-[426px]:gap-3">
           <Link href="/" className="flex items-center text-blue-600 hover:text-blue-800">
-            <FiArrowLeft className="mr-2" />
-            <span>Continue Shopping</span>
+            <FiArrowLeft className="mr-2 max-[426px]:mr-0" />
+            <span className="max-[426px]:hidden">Continue Shopping</span>
           </Link>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center">
+          <h1 className="text-2xl max-[426px]:text-xl font-bold text-gray-800 flex items-center">
             <FiShoppingBag className="mr-2" />
             Your Cart
           </h1>
-          <div className="w-24"></div> {/* Spacer for alignment */}
+          <div className="w-24 max-[426px]:hidden"></div> {/* Spacer for alignment */}
         </div>
       </header>
       
@@ -98,12 +98,12 @@ export default function CartPage() {
                       }`}
                     >
                       <div className="flex gap-4">
-                        <div className="relative">
+                        <div className="relative w-24 h-24 max-[426px]:w-24 max-[426px]:h-24 sm:w-28 sm:h-28 flex-shrink-0">
                           <Image 
                             src={item.image} 
                             alt={item.title} 
-                            width={100} 
-                            height={100} 
+                            fill
+                            sizes="(max-width: 426px) 96px, 112px"
                             className="object-contain bg-gray-100 rounded-lg border border-gray-200"
                           />
                           <div className="absolute -top-2 -right-2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
@@ -113,7 +113,7 @@ export default function CartPage() {
                         
                         <div className="flex-1">
                           <div className="flex justify-between">
-                            <h3 className="font-medium text-gray-800 line-clamp-1">{item.title}</h3>
+                            <h3 className="font-medium text-gray-800 line-clamp-2 max-[426px]:line-clamp-3">{item.title}</h3>
                             <button 
                               onClick={() => handleRemove(item.id)}
                               className="text-gray-400 hover:text-red-500 transition-colors"
@@ -126,8 +126,24 @@ export default function CartPage() {
                           <p className="text-lg font-semibold text-gray-900 mt-1">
                             ₹{(item.price * INR_RATE).toFixed(0)}
                           </p>
-                          
-                          <div className="flex items-center gap-40 mt-3">
+                          <div className="mt-1 space-y-1 text-sm text-gray-600">
+                            {item.category && <p className="capitalize">Category: {item.category}</p>}
+                            {item.rating?.rate && (
+                              <p className="flex items-center gap-1">
+                                <span className="text-yellow-500">★</span>
+                                <span>{item.rating.rate}</span>
+                                {typeof item.rating.count !== 'undefined' && (
+                                  <span className="text-gray-400">({item.rating.count})</span>
+                                )}
+                              </p>
+                            )}
+                            {item.description && (
+                              <p className="text-gray-600 line-clamp-2 max-[426px]:line-clamp-3">
+                                {item.description}
+                              </p>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-4 mt-3 max-[426px]:flex-col max-[426px]:items-start">
                             <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden text-black">
                               <button
                                 onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
@@ -146,7 +162,7 @@ export default function CartPage() {
                               </button>
                             </div>
                             
-                            <div className="ml-auto">
+                            <div className="ml-auto max-[426px]:ml-0">
                               <p className="font-semibold text-gray-900">
                                 ₹{(item.price * item.quantity * INR_RATE).toFixed(0)}
                               </p>
@@ -212,12 +228,12 @@ export default function CartPage() {
                       value={couponCode}
                       onChange={(e) => setCouponCode(e.target.value)}
                       placeholder="Enter coupon code"
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black placeholder-black"
+                      className="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black placeholder-black"
                     />
                     <button
                       onClick={applyCoupon}
                       disabled={isLoading || !couponCode}
-                      className={`px-4 py-2 rounded-lg font-medium ${
+                      className={`shrink-0 px-4 py-2 rounded-lg font-medium ${
                         isLoading || !couponCode 
                           ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
                           : 'bg-blue-600 text-white hover:bg-blue-700'
@@ -242,7 +258,7 @@ export default function CartPage() {
                 
                 <div className="mt-6">
                   <h3 className="font-medium text-gray-700 mb-2">We Accept</h3>
-                  <div className="flex gap-8">
+                  <div className="flex gap-8 max-[426px]:justify-between max-[426px]:gap-0 w-full">
                     <Image src="/dollar.png" alt="Dollar" width={64} height={40} className="rounded-xl object-contain" />
                     <Image src="/atm-card.png" alt="ATM Card" width={64} height={40} className="rounded-xl object-contain" />
                     <Image src="/Bhim.png" alt="BHIM" width={64} height={40} className="rounded-xl object-contain" />

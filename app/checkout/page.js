@@ -12,7 +12,7 @@ import Image from "next/image";
 const INR_RATE = 83;
 
 export default function CheckoutPage() {
-  const { items, total, clearCart } = useCart();
+  const { items, total, clearCart, updateQuantity } = useCart();
   const [submitted, setSubmitted] = useState(false);
   const [activeStep, setActiveStep] = useState(1); // 1 = shipping, 2 = payment
   const [paymentMethod, setPaymentMethod] = useState("credit");
@@ -110,12 +110,12 @@ export default function CheckoutPage() {
 
               {showOrderStatus && (
                 <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200 text-left">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-black">Status</span>
-                    <span className="font-semibold text-green-600">Order Confirmed</span>
-                  </div>
-                  <p className="text-gray-600 mt-1">We received your order and it&apos;s being processed.</p>
-                </div>
+                    <div className="flex flex-wrap items-center justify-start gap-x-4 gap-y-1 md:justify-between">
+                      <span className="font-medium text-black">Status</span>
+                      <span className="font-semibold text-green-600">Order Confirmed</span>
+                    </div>
+                    <p className="text-gray-600 mt-1">We received your order and it&apos;s being processed.</p>
+                 </div>
               )}
             </div>
           </div>
@@ -241,6 +241,8 @@ export default function CheckoutPage() {
                         <Image
                           src={item.image}
                           alt={item.title}
+                          width={48}
+                          height={48}
                           className="object-contain w-12 h-12"
                         />
                       </div>
@@ -423,36 +425,36 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 max-[376px]:gap-2">
                     <button
                       type="button"
                       onClick={() => setPaymentMethod("credit")}
-                      className={`flex-1 py-4 px-4 rounded-xl border-2 text-center transition-colors ${paymentMethod === "credit"
+                      className={`flex-1 py-4 px-4 rounded-xl border-2 text-center transition-colors max-[376px]:py-2 max-[376px]:px-2 max-[376px]:rounded-lg ${paymentMethod === "credit"
                         ? "border-blue-500 bg-blue-50"
                         : "border-gray-300 hover:bg-gray-50"
                         }`}
                     >
-                      <div className="font-medium text-gray-800">Credit/Debit Card</div>
+                      <div className="font-medium text-gray-800 max-[376px]:text-sm max-[376px]:leading-tight">Credit/Debit Card</div>
                     </button>
                     <button
                       type="button"
                       onClick={() => setPaymentMethod("paypal")}
-                      className={`flex-1 py-4 px-4 rounded-xl border-2 text-center transition-colors ${paymentMethod === "paypal"
+                      className={`flex-1 py-4 px-4 rounded-xl border-2 text-center transition-colors max-[376px]:py-2 max-[376px]:px-2 max-[376px]:rounded-lg ${paymentMethod === "paypal"
                         ? "border-blue-500 bg-blue-50"
                         : "border-gray-300 hover:bg-gray-50"
                         }`}
                     >
-                      <div className="font-medium text-gray-800">UPI</div>
+                      <div className="font-medium text-gray-800 max-[376px]:text-sm max-[376px]:leading-tight">UPI</div>
                     </button>
                     <button
                       type="button"
                       onClick={() => setPaymentMethod("cod")}
-                      className={`flex-1 py-4 px-4 rounded-xl border-2 text-center transition-colors ${paymentMethod === "cod"
+                      className={`flex-1 py-4 px-4 rounded-xl border-2 text-center transition-colors max-[376px]:py-2 max-[376px]:px-2 max-[376px]:rounded-lg ${paymentMethod === "cod"
                         ? "border-blue-500 bg-blue-50"
                         : "border-gray-300 hover:bg-gray-50"
                         }`}
                     >
-                      <div className="font-medium text-gray-800">Cash on Delivery</div>
+                      <div className="font-medium text-gray-800 max-[376px]:text-sm max-[376px]:leading-tight">Cash on Delivery</div>
                     </button>
                   </div>
 
