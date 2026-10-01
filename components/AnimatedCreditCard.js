@@ -48,7 +48,11 @@ export default function AnimatedCreditCard({
     setInternalFlipped((f) => !f);
   };
 
+<<<<<<< HEAD
   const ringIf = (key) => (highlight === key ? " ring-2 ring-accent rounded" : "");
+=======
+  const ringIf = (key) => (highlight === key ? " ring-2 ring-blue-400 rounded" : "");
+>>>>>>> origin/main
 
   return (
     <div
@@ -60,10 +64,21 @@ export default function AnimatedCreditCard({
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Front Side */}
+<<<<<<< HEAD
         <div className="absolute w-full h-full bg-ink rounded-xl overflow-hidden flex flex-col justify-between p-6 max-[398px]:p-5 max-[376px]:p-4 max-[340px]:p-4 text-white backface-hidden border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_24px_50px_-30px_rgba(26,23,19,0.8)]">
           <div className="flex justify-between items-center">
             <span className="font-bold text-lg max-[398px]:text-base max-[376px]:text-sm max-[340px]:text-sm tracking-widest">VISA</span>
             <div className="w-9 h-7 rounded bg-accent border border-white/20 max-[398px]:scale-90 max-[376px]:scale-85 max-[340px]:scale-75" />
+=======
+        <div className="absolute w-full h-full bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 rounded-xl shadow-lg overflow-hidden flex flex-col justify-between p-6 max-[398px]:p-5 max-[376px]:p-4 max-[340px]:p-4 text-white backface-hidden">
+          <div className="flex justify-between items-center">
+            <span className="font-bold text-lg max-[398px]:text-base max-[376px]:text-sm max-[340px]:text-sm tracking-widest">VISA</span>
+            <div className="transform max-[398px]:scale-90 max-[376px]:scale-85 max-[340px]:scale-75 origin-center">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="20" fill="#fff" fillOpacity="0.2" />
+              </svg>
+            </div>
+>>>>>>> origin/main
           </div>
           <div className="mt-6 max-[376px]:mt-4 max-[340px]:mt-3">
             <div className={`text-xl max-[398px]:text-lg max-[376px]:text-base max-[340px]:text-base font-mono tracking-widest px-1${ringIf("number")}`}>{displayNumber}</div>
@@ -80,8 +95,13 @@ export default function AnimatedCreditCard({
           </div>
         </div>
         {/* Back Side */}
+<<<<<<< HEAD
         <div className="absolute w-full h-full bg-ink-soft rounded-xl shadow-lg overflow-hidden flex flex-col justify-center items-center text-white rotate-y-180 backface-hidden border border-white/10">
           <div className="w-3/4 h-6 bg-ink mb-6 rounded border border-white/10"></div>
+=======
+        <div className="absolute w-full h-full bg-gradient-to-tr from-gray-700 via-gray-900 to-black rounded-xl shadow-lg overflow-hidden flex flex-col justify-center items-center text-white rotate-y-180 backface-hidden">
+          <div className="w-3/4 h-6 bg-gray-800 mb-6 rounded"></div>
+>>>>>>> origin/main
           <div className={`w-2/3 h-6 bg-white text-black text-center rounded flex items-center justify-center px-2${ringIf("cvv")}`}>
             CVV: {displayCvv}
           </div>

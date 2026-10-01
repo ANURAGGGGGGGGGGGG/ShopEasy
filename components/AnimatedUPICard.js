@@ -47,6 +47,7 @@ export default function AnimatedUPICard({
 
   const onCardClick = () => setIsFlipped((f) => !f);
 
+<<<<<<< HEAD
   const ringIf = (key) => (highlight === key ? " ring-2 ring-accent rounded" : "");
 
   // Simple QR code placeholder (for preview). Replace with a QR lib for production
@@ -63,6 +64,16 @@ export default function AnimatedUPICard({
             key={index}
             className={`${dark ? "bg-ink" : "bg-surface"} rounded-sm`}
           />
+=======
+  const ringIf = (key) => (highlight === key ? " ring-2 ring-green-400 rounded" : "");
+
+  // Simple QR code placeholder (for preview). Replace with a QR lib for production
+  const QRCodePlaceholder = () => (
+    <div className="w-36 h-36 bg-white rounded-lg p-2 shadow-lg">
+      <div className="w-full h-full bg-gray-900 rounded grid grid-cols-8 gap-px">
+        {[...Array(64)].map((_, i) => (
+          <div key={i} className={`${Math.random() > 0.5 ? "bg-black" : "bg-white"} rounded-sm`} />
+>>>>>>> origin/main
         ))}
       </div>
     </div>
@@ -72,12 +83,17 @@ export default function AnimatedUPICard({
     <div className="w-full flex justify-center my-8">
       {/* Phone body */}
       <div
+<<<<<<< HEAD
         className="relative mx-auto bg-ink rounded-[2rem] p-2 shadow-2xl w-[320px]"
+=======
+        className="relative mx-auto bg-black rounded-[2rem] p-2 shadow-2xl w-[320px]"
+>>>>>>> origin/main
         role="button"
         aria-label="Toggle UPI card view"
         onClick={onCardClick}
       >
         {/* Side buttons (decoration) */}
+<<<<<<< HEAD
         <div className="absolute -left-1 top-20 w-0.5 h-16 bg-ink-soft rounded"></div>
         <div className="absolute -left-1 top-40 w-0.5 h-10 bg-ink-soft rounded"></div>
         <div className="absolute -right-1 top-28 w-0.5 h-14 bg-ink-soft rounded"></div>
@@ -86,13 +102,28 @@ export default function AnimatedUPICard({
         <div className="relative bg-paper-deep rounded-[1.6rem] h-[600px] overflow-hidden">
           {/* Notch */}
           <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-5 bg-ink rounded-b-2xl"></div>
+=======
+        <div className="absolute -left-1 top-20 w-0.5 h-16 bg-gray-700 rounded"></div>
+        <div className="absolute -left-1 top-40 w-0.5 h-10 bg-gray-700 rounded"></div>
+        <div className="absolute -right-1 top-28 w-0.5 h-14 bg-gray-700 rounded"></div>
+
+        {/* Screen */}
+        <div className="relative bg-gradient-to-b from-gray-100 to-gray-200 rounded-[1.6rem] h-[600px] overflow-hidden">
+          {/* Notch */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl"></div>
+>>>>>>> origin/main
 
           {/* Screen content */}
           <div className="absolute inset-0 pt-10 pb-6 px-4 flex flex-col">
             {/* Header */}
             <div className="text-center">
+<<<<<<< HEAD
               <div className="text-sm font-medium text-ink-soft">UPI Pay</div>
               <div className="text-xs text-ink-mute">{displayMerchant}</div>
+=======
+              <div className="text-sm font-medium text-gray-700">UPI Pay</div>
+              <div className="text-xs text-gray-500">{displayMerchant}</div>
+>>>>>>> origin/main
             </div>
 
             {/* Flippable area inside the phone screen */}
@@ -104,7 +135,11 @@ export default function AnimatedUPICard({
                 style={{ transformStyle: "preserve-3d" }}
               >
                 {/* Front: UPI details and amount */}
+<<<<<<< HEAD
                 <div className="absolute inset-0 backface-hidden rounded-xl bg-accent text-white p-4 flex flex-col border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]">
+=======
+                <div className="absolute inset-0 backface-hidden rounded-xl bg-gradient-to-tr from-green-500 via-blue-500 to-purple-500 text-white p-4 flex flex-col">
+>>>>>>> origin/main
                   <div className="text-center mt-2">
                     <div className={`text-3xl font-bold mb-1${ringIf("amount")}`}>{displayAmount}</div>
                     <div className="text-xs opacity-80">Payment Amount</div>
@@ -125,7 +160,11 @@ export default function AnimatedUPICard({
                 </div>
 
                 {/* Back: QR side */}
+<<<<<<< HEAD
                 <div className="absolute inset-0 rotate-y-180 backface-hidden rounded-xl bg-ink text-white p-4 flex flex-col items-center justify-center">
+=======
+                <div className="absolute inset-0 rotate-y-180 backface-hidden rounded-xl bg-gradient-to-tr from-gray-700 via-gray-900 to-black text-white p-4 flex flex-col items-center justify-center">
+>>>>>>> origin/main
                   <div className={`${ringIf("qr")}`}>
                     <QRCodePlaceholder />
                   </div>
@@ -137,7 +176,11 @@ export default function AnimatedUPICard({
 
             {/* Home indicator */}
             <div className="mt-4 flex justify-center">
+<<<<<<< HEAD
               <div className="h-1 w-24 bg-line-strong rounded-full"></div>
+=======
+              <div className="h-1 w-24 bg-gray-300 rounded-full"></div>
+>>>>>>> origin/main
             </div>
           </div>
         </div>
