@@ -1,5 +1,4 @@
 "use client";
-<<<<<<< HEAD
 
 import { MotionConfig } from "framer-motion";
 import { CartProvider } from "./CartContext";
@@ -20,10 +19,3 @@ export default function Providers({ children }) {
     </MotionConfig>
   );
 }
-=======
-import { CartProvider } from "./CartContext";
-
-export default function Providers({ children }) {
-  return <CartProvider>{children}</CartProvider>;
-}
->>>>>>> origin/main
